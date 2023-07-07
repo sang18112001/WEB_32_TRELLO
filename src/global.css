@@ -1,0 +1,664 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+html {
+  position: relative;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
+    sans-serif;
+}
+
+body {
+  color: black;
+  position: relative;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+input,
+button {
+  transition: all 0.3s;
+}
+
+.activeTodoTask {
+  background-color: dimgray !important;
+  color: white !important;
+}
+
+.activeProgressTask {
+  background-color: rgb(255, 111, 0) !important;
+  color: white !important;
+}
+
+.activeResolvedTask {
+  background-color: #0c66e4 !important;
+  color: white !important;
+}
+
+.activeClosedTask {
+  background-color: #4cc790 !important;
+  color: white !important;
+}
+
+.activeClosedTaskHeader,
+.activeResolvedChecklist .checklistMain > p {
+  text-decoration-line: line-through;
+  color: gray;
+}
+
+.activeResolvedChecklist .doneChecklist {
+  color: #4cc790;
+}
+
+.activeOnDrag {
+  opacity: 0.5;
+}
+
+.isDragging {
+  background-color: #0c66e4 !important;
+}
+
+header {
+  background-color: hsl(213, 22.2%, 87.4%);
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 30px;
+  color: #172b4d;
+}
+
+header h3 {
+  line-height: 60px;
+}
+
+header form input {
+  height: 32px;
+  padding: 5px 10px;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+
+header form input:focus {
+  border: 1px solid #0c66e4;
+}
+
+header button {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 5px;
+  gap: 5px;
+  cursor: pointer;
+  height: 32px;
+  border: none;
+  background-color: #0c66e4;
+  color: white;
+}
+.issues_header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.issues_search {
+  color: #172b4d;
+  position: relative;
+}
+.issues_search svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.issues_search input {
+  padding: 5px 10px;
+  padding-left: 28px;
+  height: 32px;
+  font-size: 14px;
+  outline: none;
+  border: 2px solid gray;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+.issues_search input:focus {
+  border: 2px solid #0c66e4;
+}
+
+#webBody {
+  background: url('./assets/images/e2d2752f.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: -1;
+  padding-top: 60px;
+  overflow-x: auto;
+}
+
+.issues_container {
+  width: 100%;
+  overflow: auto;
+  height: 100%;
+  padding: 12px;
+}
+
+.issues_container button {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  gap: 10px;
+  cursor: pointer;
+  background-color: white;
+  margin-bottom: 20px;
+  height: fit-content;
+}
+
+.issues_container button svg {
+  font-size: 20px;
+  color: #4cc790;
+}
+
+.issues {
+  margin: 0px auto;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.issue {
+  padding: 12px;
+  height: fit-content;
+}
+
+.issue_container {
+  height: fit-content;
+  width: 270px !important;
+  padding: 10px;
+  background-color: #f1f2f4;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.issue label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.issue .issue_headerMain {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.issue .issue_headerMain svg {
+  cursor: pointer;
+}
+
+.issue .issue_headerMain h1 {
+  font-size: 16px;
+  max-width: 200px;
+  word-wrap: break-word;
+  word-break: break-all;
+  color: #172b4d;
+}
+
+.issue .issue_headerMain input {
+  font-size: 16px;
+  width: 200px;
+  position: absolute;
+  top: 0px;
+  padding: 5px;
+}
+
+.issue .issue_headerMain svg {
+  color: #172b4d;
+  font-size: 18px;
+  margin-left: 5px;
+}
+
+.issue input {
+  padding: 5px 10px;
+  font-size: 14px;
+  width: 100%;
+  border-radius: 5px;
+  outline: none;
+  border: 3px solid transparent;
+}
+
+.issue input:focus {
+  border: 3px solid #0c66e4 !important;
+}
+
+.tasksBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
+
+.taskPercent {
+  width: 80%;
+  height: 6px;
+  background-color: gray;
+  position: relative;
+  border-radius: 12px;
+}
+
+.taskPercent .taskClosedPercent {
+  height: 6px;
+  background-color: #4cc790;
+  position: absolute;
+  top: 0px;
+  border-radius: 12px;
+}
+
+.taskNumber {
+  width: fit-content !important;
+  padding: 2px 5px;
+  background-color: #4cc790;
+  border-radius: 5px;
+  font-size: 12px;
+  color: white;
+}
+.childIssueRender {
+  margin: 0px -10px;
+}
+.childIssueRender form {
+  padding: 0px 10px;
+}
+.childIssue {
+  width: 100%;
+  padding: 5px 10px;
+}
+
+.chidlIssueMain {
+  padding: 5px 10px;
+  background-color: white;
+  border-radius: 10px;
+  cursor: move;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chidlIssueMain::after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  background-color: cyan;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0px;
+}
+/* .chidlIssueMain::before {
+  content: '';
+  width: 100%;
+  height: 5px;
+  background-color: transparent;
+  position: absolute;
+  bottom: -5px;
+  left: 0px;
+} */
+
+.childIssue h4 {
+  font-size: 12px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.childIssue > h4 {
+  margin-bottom: 10px;
+}
+
+.childIssue .removeTask {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: rgb(237, 237, 237);
+  top: 3px;
+  right: 5px;
+  display: none;
+  z-index: 11;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.childIssue:hover .removeTask {
+  display: flex;
+}
+.childIssue .removeTask svg {
+  font-size: 15px;
+}
+.childIssue .stateChildIssue {
+  display: flex;
+  justify-content: end;
+  font-size: 12px;
+  gap: 10px;
+  position: relative;
+}
+
+.childIssue .stateChildIssue p {
+  padding: 2px 4px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.childIssue .stateChildIssue .stateChildBox {
+  position: absolute;
+  top: 25px;
+  z-index: 11;
+  background-color: #282e33;
+  padding: 5px;
+  color: white;
+  border-radius: 10px;
+  width: 170px;
+  cursor: pointer;
+}
+
+.stateChildBox .stateBoxItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.stateChildBox .stateBoxItem .stateBoxItem_right {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.childIssueContainer button {
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  margin: 0px auto;
+  padding: 5px 10px;
+  font-size: 14px;
+  line-height: 14px;
+  gap: 5px;
+}
+
+.childIssueContainer button:hover {
+  background-color: rgb(200, 200, 200);
+}
+
+.childIssueContainer button svg {
+  font-size: 16px;
+  color: #172b4d;
+}
+
+.childIssueBox {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #172b4d !important;
+}
+
+.childIssueBox button {
+  width: 100%;
+}
+
+.childIssueBox_container {
+  width: 600px;
+  min-height: 500px;
+  background-color: white;
+  position: relative;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.childIssueBox_header {
+  position: relative;
+}
+
+.childIssueBoxTitle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.childIssueBoxTitle svg {
+  font-size: 24px;
+}
+
+.childIssueBox_header h2 {
+  cursor: pointer;
+  width: fit-content;
+  font-weight: 600;
+}
+
+.childIssueBox_header form {
+  position: absolute;
+  top: 0px;
+}
+
+.childIssueBox_header form input {
+  font-size: 20px;
+}
+
+.childIssueBox_container ul {
+  color: #172b4d;
+  width: 100%;
+}
+
+.childIssueBox_container ul li {
+  padding: 5px 0px;
+}
+
+.childIssueBox_container .checklistContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  background-color: #e4e6ea;
+  padding: 8px 16px;
+  padding-right: 5px;
+  width: 100%;
+  border-radius: 10px;
+  list-style: circle;
+}
+
+.childIssueBox_container .checklistContainer form {
+  position: absolute;
+  top: -4px;
+  left: 0px;
+  margin: 0px;
+  width: 200px;
+}
+
+.childIssueBox_container .checklistContainer input {
+  padding: 3px !important;
+  font-size: 14px !important;
+}
+
+.childIssueBox_container p {
+  font-size: 14px;
+}
+
+.childIssueBox_container .checklistModify svg {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.childIssueBox_container ul > svg {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 11;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.childIssueBox_mainContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkListTitle,
+.descriptionTitle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.checkListTitle h3,
+.descriptionTitle h3 {
+  font-weight: 600;
+}
+
+.checkListTitle {
+  margin-bottom: 10px;
+}
+
+.checkListTitle svg,
+.descriptionTitle svg {
+  font-size: 18px;
+}
+
+.childIssueBox_left {
+  flex: 1;
+  margin-right: 30px;
+}
+.childIssueBox_left input[type='text'] {
+  font-size: 14px;
+  border: 3px solid transparent;
+  padding: 6px 12px;
+}
+
+.childIssueBox_left form {
+  margin-top: 10px;
+}
+
+.childIssueBox_left > form input {
+  border: 3px solid black !important;
+}
+
+.childIssueBox_right {
+  margin-top: -10px;
+}
+
+.childIssueBox_right p {
+  font-size: 12px;
+  font-weight: bold;
+  color: #172b4d;
+}
+
+.childIssueBox_right button {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  background-color: #e4e6ea;
+  border-radius: 3px;
+  margin-top: 10px;
+  color: #172b4d;
+}
+
+.childIssueBox_right button span {
+  display: block;
+}
+
+.childIssueBox_right button svg {
+  font-size: 14px;
+}
+
+.closeChecklist {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.closeChecklist:hover {
+  background-color: #e4e6ea;
+}
+
+.closeChecklist svg {
+  font-size: 24px;
+}
+
+.childIssueBox_description {
+  position: relative;
+}
+
+.addDescription {
+  /* position: absolute; */
+  top: 0px;
+}
+
+.addDescription textarea {
+  font-size: 14px;
+  width: 100%;
+  padding: 5px;
+}
+
+.descriptionContent {
+  margin: 10px;
+}
+
+.addBox {
+  display: flex;
+  justify-content: start;
+}
+
+.addBox button {
+  font-size: 14px;
+  padding: 8px 16px;
+  width: fit-content;
+  color: white;
+  margin: 0px;
+  border-radius: 5px;
+}
+
+.addBox button.add {
+  background-color: #0c66e4;
+  margin-right: 10px;
+}
+.addBox button.add:hover {
+  background-color: #0c66e4ce;
+}
+
+.addBox button.cancel {
+  color: #172b4d;
+}
+.addBox button.cancel:hover {
+  background-color: #091e4224;
+}
